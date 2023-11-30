@@ -78,29 +78,34 @@ global $user_login;
 	<?php endif; ?>
 <?php endif; ?>
 
-<?php
+<?php if ( is_user_logged_in() ) : ?>
+    <?php
 
-$args = array(
-	'logged_in_as' => '',
-	'comment_field' => '<p class="comment-form-comment">' .
-		'<textarea class="form-control alt" id="comment" name="comment" placeholder="Escreva um comentário..." rows="3" aria-required="true"></textarea>' .
-		'</p>',
-	'comment_notes_after' => '',
-	'title_reply_before' => '<h5 id="reply-title" class="comment-reply-title">',
-	'title_reply_afer' => '</h5>',
-	'cancel_reply_before' => '<div class="cancel ml-auto">',
-	'must_log_in' => '<div class="alert alert-secondary">Você precisa <a href="/entrar" data-toggle="modal" data-target="#loginModal">entrar</a> para publicar um comentário.</div>',
-	'class_submit' => 'btn btn-primary',
-);
+    $args = array(
+        'logged_in_as' => '',
+        'comment_field' => '<p class="comment-form-comment">' .
+            '<textarea class="form-control alt" id="comment" name="comment" placeholder="Escreva um comentário..." rows="3" aria-required="true"></textarea>' .
+            '</p>',
+        'comment_notes_after' => '',
+        'title_reply_before' => '<h5 id="reply-title" class="comment-reply-title">',
+        'title_reply_after' => '</h5>',
+        'cancel_reply_before' => '<div class="cancel ml-auto">',
+        'class_submit' => 'btn btn-primary',
+    );
 
-?>
+    comment_form($args);
 
-<?php comment_form($args); ?>
+    ?>
+<?php else : ?>
+    <div class="alert alert-secondary">
+        Você precisa <a href="/entrar" data-toggle="modal" data-target="#loginModal">entrar</a> para publicar um comentário.
+    </div>
+<?php endif; ?>
 
 <?php if ( !comments_open() ) : ?>
-	<div class="card">
-		<div class="card-body text-center text-muted">
-			<strong>Não é mais possível fazer comentários aqui.</strong>
-		</div>
-	</div>
+    <div class="card">
+        <div class="card-body text-center text-muted">
+            <strong>Não é mais possível fazer comentários aqui.</strong>
+        </div>
+    </div>
 <?php endif; ?>
