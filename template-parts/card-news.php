@@ -32,22 +32,8 @@
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
-		<?php
-		function custom_limited_title($limit = 45) {
-    // Obtém o título
-    $title = get_the_title();
-
-    // Verifica se o título excede o limite
-    if (strlen($title) > $limit) {
-        // Limita o título e adiciona reticências
-        $title = substr($title, 0, $limit) . '...';
-    }
-
-    // Exibe o título
-    echo esc_html($title);
-}
-?>
-		<h5 class="card-title mb-4"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php custom_limited_title(); ?></a></h5>
+		
+		<h5 class="card-title mb-4"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php echo get_the_title(); ?></a></h5>
 		<div class="card-text">
 			<div class="user-avatar sm mr-2">
 				<?php echo get_avatar( get_the_author_meta( 'ID' ), 24 ); ?>
