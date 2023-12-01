@@ -2,7 +2,7 @@
 
 <div class="jumbotron jumbotron-fluid orange">
 	<div class="container d-flex align-items-center">
-		<h1><?php esc_html_e( 'Fórum', 'hfansite' ); ?></h1> <a href="<?php echo home_url() ?>/novo-topico" class="btn btn-light ml-4"><?php esc_html_e( 'New topic', 'hfansite' ); ?></a>
+		<h1><?php esc_html_e( 'Fórum', 'hfansite' ); ?></h1> <a href="<?php echo home_url() ?>/novo-topico" class="btn btn-light ml-4"><?php esc_html_e( 'Novo tópico', 'hfansite' ); ?></a>
 	</div>
 </div>
 

@@ -1,8 +1,8 @@
 <?php get_header(); ?>
 
-<div class="jumbotron jumbotron-fluid pink">
+<div class="jumbotron jumbotron-fluid">
 	<div class="container d-flex align-items-center">
-		<h1><?php esc_html_e( 'Gallery', 'hfansite' ); ?></h1> <a href="<?php echo home_url() ?>/nova-arte" class="btn btn-light ml-4">Nova arte</a>
+		<h1><?php esc_html_e( 'Galeria', 'hfansite' ); ?></h1> <a href="<?php echo home_url() ?>/nova-arte" class="btn btn-light ml-4">Nova Imagem</a>
 	</div>
 </div>
 
@@ -44,7 +44,7 @@
 				<?php endwhile; else: ?>
 					<div class="card">
 						<div class="card-body text-center text-muted">
-							<strong>Nenhuma arte</strong>
+							<strong>Nenhuma arte encontrada</strong>
 						</div>
 					</div>
 				<?php endif; ?>
