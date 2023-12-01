@@ -44,7 +44,7 @@
 							<i class="fas fa-plus mr-1"></i> <?php esc_html_e( 'Novo', 'hfansite' ); ?>
 						</div>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropnew">
-							<a class="dropdown-item" href="<?php echo home_url() ?>/novo-topico"><?php esc_html_e( 'Topico', 'hfansite' ); ?></a>
+							<a class="dropdown-item" href="<?php echo home_url() ?>/novo-topico"><?php esc_html_e( 'Tópico', 'hfansite' ); ?></a>
 							<a class="dropdown-item" href="<?php echo home_url() ?>/nova-arte"><?php esc_html_e( 'Galeria', 'hfansite' ); ?></a>
 							<?php if(current_user_can('administrator')) { ?>
 								<div class="dropdown-divider"></div>
