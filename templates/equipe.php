@@ -19,6 +19,7 @@ get_header();
 			<div class="list-team">
 				<a href="#" class="item active">Administração</a>
 				<a href="#" class="item">Jornalismo</a>
+				<a href="#" class="item">Desenvolvedor</a>
 			</div>
 		</div>
 
@@ -37,7 +38,7 @@ get_header();
 					<div class="card">
 						<div class="card-body text-center">
 							<div class="avatar pixel lg mx-auto mb-3">
-								<img src="https://www.habbo.com.br/habbo-imaging/avatarimage?&user=<?php echo $user->user_login ?>&action=std&direction=2&head_direction=2&img_format=png&gesture=std&headonly=0&size=b">
+								<?php echo get_avatar( get_the_author_meta( 'ID' ), 56 ); ?>
 							</div>
 							<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), $user->user_login ); ?>" class="h5 text-inherit mb-1 d-block" data-toggle="tooltip" title="<?php echo $user->user_login ?>"><?php echo $user->display_name ?></a>
 						</div>
@@ -62,8 +63,8 @@ get_header();
 				<div class="col-md-2">
 					<div class="card">
 						<div class="card-body text-center">
-							<div class="avatar pixel lg mx-auto mb-3">
-								<img src="https://www.habbo.com.br/habbo-imaging/avatarimage?&user=<?php echo $user->user_login ?>&action=std&direction=2&head_direction=2&img_format=png&gesture=std&headonly=0&size=b">
+						<div class="avatar pixel lg mx-auto mb-3">
+								<?php echo get_avatar( get_the_author_meta( 'ID' ), 56 ); ?>
 							</div>
 							<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), $user->user_login ); ?>" class="h5 text-inherit mb-1 d-block" data-toggle="tooltip" title="<?php echo $user->user_login ?>"><?php echo $user->display_name ?></a>
 						</div>
