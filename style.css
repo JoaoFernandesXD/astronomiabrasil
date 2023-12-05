@@ -263,11 +263,11 @@ strong {
 
 .jumbotron.hero {
 	background-color: #000000;
-	background-image: url(https://art.pixilart.com/sr2e834fb0e2daws3.png), linear-gradient(-135deg, transparent, #000000), url(assets/image/tile.png);
+	background-image: url(https://www.nasa.gov/wp-content/uploads/2023/03/e-pia00104-venus-full-alt-1041.jpg), linear-gradient(-135deg, transparent, #000000), url(assets/image/tile.png);
 	background-repeat: no-repeat, repeat, repeat;
 	background-position: calc(50% + 180px) -140px, center;
 	image-rendering: pixelated;
-	height: 180px;
+	height: 300px;
 
 	color: #fff;
 	text-shadow: 0 2px 4px rgba(0,0,0,0.16);
@@ -2150,7 +2150,6 @@ button.close:hover {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 4rem;
     height: 100%;
-    max-height: 527px; /* Defina a altura máxima desejada */
     border-radius: 0.5rem 0 0 0.5rem;
 }
 

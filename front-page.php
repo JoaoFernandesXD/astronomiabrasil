@@ -2,7 +2,7 @@
 
 <div class="jumbotron jumbotron-fluid hero">
 	<div class="container">
-		<h1 class="my-3"><?php echo bloginfo('name'); ?></h1>
+		<h1 class="my-3"><img src="<?php echo home_url() ?>/wp-content/uploads/2023/12/logo-branca.png" width="300px" style="margin-top:40px;"></h1>
 	</div>
 </div>
 
@@ -37,7 +37,7 @@
 					<?php dynamic_sidebar( 'sidebar_middle' ); ?>
 				</div>
 
-				<!-- <div class="section-title mt-4">
+				<div class="section-title mt-4">
 					<h3>Novos usuários</h3>
 				</div>
 
@@ -57,7 +57,7 @@
 							?>
 						</div>
 					</div>
-				</div> -->
+				</div> 
 			</div>
 		</div>
 	</div>

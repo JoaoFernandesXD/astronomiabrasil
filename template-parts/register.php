@@ -13,53 +13,86 @@ if (is_user_logged_in()) : ?>
     </div>
 
 <?php else : ?>
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
-        $user_login = sanitize_user($_POST['user_login']);
-        $user_email = sanitize_email($_POST['user_email']);
+    <div id="registration-response"></div>
 
-        // Verificar se os campos necessários foram preenchidos
-        if (empty($user_login) || empty($user_email)) {
-            echo '<div class="alert alert-danger">Erro: Preencha todos os campos.</div>';
-        } else {
-            // Verificar se o usuário já existe
-            if (username_exists($user_login) || email_exists($user_email)) {
-                echo '<div class="alert alert-danger">Erro: Este usuário ou e-mail já está em uso.</div>';
-            } else {
-                // Criar o novo usuário
-                $user_id = wp_create_user($user_login, wp_generate_password(), $user_email);
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        // Configuração das regras de validação
+        $('#registration-form').validate({
+            rules: {
+                user_cadastro: {
+                    required: true,
+                },
+                user_password: {
+                    required: true,
+                },
+                user_email: {
+                    required: true,
+                    email: true,
+                },
+            },
+            messages: {
+                user_cadastro: {
+                    required: 'Campo obrigatório',
+                },
+                user_email: {
+                    required: 'Campo obrigatório',
+                    email: 'Digite um e-mail válido',
+                },
+            },
+            submitHandler: function (form) {
+                // Se a validação passar, envie os dados via AJAX
+                var user_cadastro = $('#user_cadastro').val();
+                var userEmail = $('#user_email').val();
+                var user_password = $('#user_password').val();
 
-                if (is_wp_error($user_id)) {
-                    echo '<div class="alert alert-danger">Erro: Houve um problema ao criar o usuário.</div>';
-                } else {
-                    // Fazer login automaticamente após o registro
-                    wp_set_current_user($user_id);
-                    wp_set_auth_cookie($user_id);
-                    do_action('wp_login', $user_login);
-
-                    echo '<div class="alert alert-success">Cadastro realizado com sucesso! Você foi logado automaticamente.</div>';
-                }
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo admin_url("admin-ajax.php"); ?>',
+                    data: {
+                        action: 'custom_register',
+                        user_cadastro: user_cadastro,
+                        user_email: userEmail,
+                        user_password: user_password,
+                    },
+                    success: function (response) {
+                        $('#registration-response').html(response);
+                    },
+                    error: function (error) {
+                        console.log(error); // Exibe erros no console para depuração
+                    }
+                });
             }
-        }
-    }
-    ?>
+        });
+    });
+</script>
 
-    <form action="" method="post">
-        <div class="form-group">
+
+
+
+
+    <form id="registration-form" action="" method="post">
+    <div class="form-group">
             <label>Usuário</label>
-            <input type="text" name="user_login" id="user_login" class="form-control alt" />
+            <input type="text" name="user_cadastro" id="user_cadastro" class="form-control alt" />
         </div>
         <div class="form-group">
             <label>E-mail</label>
             <input type="text" name="user_email" id="user_email" class="form-control alt" />
         </div>
+        <div class="form-group">
+        <label>Senha</label>
+        <input type="password" name="user_password" id="user_password" class="form-control alt" />
+    </div>
         <p class="text-muted">Uma confirmação de registro será enviada para você por e-mail.</p>
         <?php do_action('register_form'); ?>
-        <input type="submit" name="register" class="btn btn-lg btn-block btn-success" value="Cadastre-se" />
 
         <div class="text-center text-muted mt-4">
-            Já tem uma conta? <a href="<?php echo home_url() ?>/entrar" class="text-link text-primary show-login">Entre agora</a>
+            Já tem uma conta? <a href="#" class="text-link text-primary show-login">Entre agora</a>
         </div>
+        <br>
+        <input type="submit" name="register" class="btn btn-lg btn-block btn-success" value="Cadastre-se" />
     </form>
-
 <?php endif; ?>

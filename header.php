@@ -15,7 +15,7 @@
 
 	<nav class="navbar fixed-top navbar-expand-lg navbar-light">
 		<a class="navbar-brand" href="<?php echo home_url() ?>">
-			<?php echo bloginfo('name'); ?><span class="tag">Beta</span>
+			<img src="<?php echo home_url() ?>/wp-content/uploads/2023/12/logo.png" width="100px;">
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -32,9 +32,6 @@
 				) );
 			?>
 
-			<!-- <a href="#" style="font-size: 1.25rem" data-toggle="modal" data-target="#exampleModal">
-				<i class="fas fa-gift p-2" data-toggle="tooltip" data-placement="right" title="Presentes diários"></i>
-			</a> -->
 
 			<div class="d-flex justify-content-center align-items-center ml-auto mt-3 mt-lg-0">
 				<?php if ( is_user_logged_in() ): ?>
