@@ -7,10 +7,11 @@
 		<?php endif; ?>
 
 		<?php
-		$alert_name = get_post_meta( get_the_ID(), 'alert_name', true );
-		if( !empty( $alert_name) ) : ?>
-			<div class="live <?php echo $alert_color; ?>"><?php echo $alert_name; ?></div>
-		<?php endif; ?>
+		$include_alert = get_post_meta(get_the_ID(), '_include_alert', true);
+
+		if ($include_alert === 'on') { ?>
+			<div class="live >">Em Alta</div>
+		<?php } ?>
 
 		<?php $category = get_the_category(); ?>
 		<div class="cat <?php echo $category[0]->slug; ?>" data-toggle="tooltip" data-html="true" title="<?php echo $category[0]->name; ?>">

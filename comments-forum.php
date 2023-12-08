@@ -80,7 +80,8 @@ global $user_login;
 
 <?php if ( is_user_logged_in() ) : ?>
     <?php
-
+    $moedas_atual = get_user_meta(get_current_user_id(), 'moedas_usuario', true);
+    update_user_meta(get_current_user_id(), 'moedas_usuario', $moedas_atual + 5);
     $args = array(
         'logged_in_as' => '',
         'comment_field' => '<p class="comment-form-comment">' .

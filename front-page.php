@@ -45,19 +45,22 @@
 					<div class="card-body last-users">
 						<div class="row">
 							<?php
-								$usernames = $wpdb->get_results("SELECT user_login, user_url FROM $wpdb->users ORDER BY ID DESC LIMIT 6");
-								 
-								foreach ($usernames as $username) { ?>
-									<div class="col">
-										<div class="user-avatar pixel mx-auto" data-toggle="tooltip" title="<?php echo $username->user_login ?>">
-											<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), $username->user_login ); ?>"><img src="https://www.habbo.com.br/habbo-imaging/avatarimage?&user=<?php echo $username->user_login ?>&action=std&direction=2&head_direction=3&img_format=png&gesture=std&headonly=0&size=s" alt="<?php echo $username->user_login ?>"></a>
-										</div>
+							$usernames = $wpdb->get_results("SELECT ID, user_login, user_url FROM $wpdb->users ORDER BY ID DESC LIMIT 6");
+
+							foreach ($usernames as $user) {
+								$avatar_url = get_avatar_url($user->ID, array('size' => 32)); // Altere o tamanho conforme necessário
+								?>
+								<div class="col">
+									<div class="user-avatar pixel mx-auto" data-toggle="tooltip" title="<?php echo esc_attr($user->user_login) ?>">
+										<a href="<?php echo esc_url(get_author_posts_url($user->ID, $user->user_login)); ?>">
+											<img src="<?php echo esc_url($avatar_url); ?>" alt="<?php echo esc_attr($user->user_login); ?>">
+										</a>
 									</div>
-								<?php }
-							?>
+								</div>
+							<?php } ?>
 						</div>
 					</div>
-				</div> 
+				</div>
 			</div>
 		</div>
 	</div>
@@ -66,8 +69,11 @@
 <section class="pb-0">
 	<div class="container">
 		<div>
+			<?php get_template_part( 'template-parts/card-free') ?>
+			<br>
 			<?php dynamic_sidebar( 'sidebar_down' ); ?>
 		</div>
+		
 	</div>
 </section>
 
