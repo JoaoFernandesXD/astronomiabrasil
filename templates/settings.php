@@ -63,6 +63,37 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST['action']) && $_POST['
 
 get_header();
 ?>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var fileInput = document.getElementById('custom-avatar');
+    
+    fileInput.addEventListener('change', function () {
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append('action', 'upload_avatar');
+        formData.append('security', '<?php echo wp_create_nonce('update-avatar-nonce'); ?>'); // Adiciona o nonce
+        formData.append('avatar', file);
+
+        // Enviar requisição AJAX
+        jQuery.ajax({
+            type: 'POST',
+            url: '<?php echo admin_url('admin-ajax.php'); ?>',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(response);
+				alert('Avatar Editado com sucesso!')
+            },
+            error: function (error) {
+                console.error('Erro na solicitação AJAX:', error);
+            }
+        });
+    });
+});
+
+</script>
+
 
 <?php if (is_user_logged_in()): ?>
 <div class="jumbotron jumbotron-fluid">
@@ -98,13 +129,22 @@ get_header();
 				<div class="col-md-6">
 					<?php if (count($error) > 0) echo '<div class="alert alert-danger">' . implode("<br />", $error) . '</div>'; ?>
 
-					<form method="post" id="adduser" action="<?php the_permalink(); ?>">
+					<form method="post" id="adduser" action="<?php the_permalink(); ?>" enctype="multipart/form-data">
 						<h3 class="mb-3"><?php esc_html_e( 'Name', 'hfansite' ); ?></h3>
 						<div class="form-group form-username">
 							<label for="user_login"><?php esc_html_e( 'Username', 'hfansite' ); ?></label>
 							<input disabled="" class="form-control" name="user_login" type="text" id="user_login" value="<?php the_author_meta('user_login', $current_user->ID); ?>" />
 							<small class="form-text text-muted">Não é possível alterar nomes de usuário.</small>
 						</div>
+						<h3 class="mb-3 mt-4">Avatar</h3>
+						<div class="form-group form-avatar">
+							<?php
+								$user_id = get_the_author_meta( 'ID' );
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-32 photo" height="32" width="32" decoding="async">';
+								?>
+							<input type="file" name="custom-avatar" id="custom-avatar" accept="image/*">
+						</div>		
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group form-username">
@@ -167,8 +207,7 @@ get_header();
 						<div class="form-group form-textarea">
 							<label for="description">Informações biográficas</label>
 							<textarea class="form-control" name="description" id="description" rows="3" cols="50"><?php the_author_meta('description', $current_user->ID); ?></textarea>
-						</div>
-
+						</div>									
 						<h3 class="mb-3 mt-4">Gerenciamento de conta</h3>
 						<div class="form-group form-password">
 							<label for="pass1">Senha *</label>

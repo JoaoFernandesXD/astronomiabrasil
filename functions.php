@@ -223,6 +223,48 @@ function salvar_metabox_emblema($post_id) {
 add_action('add_meta_boxes', 'adicionar_metabox_emblema');
 add_action('save_post', 'salvar_metabox_emblema');
 
+add_action('init', 'custom_avatar_meta_field');
+
+function obter_emblemas_disponiveis() {
+    $emblemas_disponiveis = array();
+
+    $emblemas_query = new WP_Query(array(
+        'post_type' => 'emblemas',
+        'posts_per_page' => -1,
+    ));
+
+    while ($emblemas_query->have_posts()) : $emblemas_query->the_post();
+        $preco_emblema = get_post_meta(get_the_ID(), '_preco_emblema', true);
+        $status = get_post_meta(get_the_ID(), '_disponibilidade_emblema', true);
+        $pontos = get_post_meta(get_the_ID(), '_pontos_necessarios_emblema', true);
+        $imagem_emblema = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail');
+
+        $emblema = array(
+            'ID' => get_the_ID(),
+            'titulo' => get_the_title(),
+            'preco' => $preco_emblema,
+            'status' => $status,
+            'pontos' => $pontos,
+            'imagem' => $imagem_emblema,
+        );
+
+        $emblemas_disponiveis[] = $emblema;
+    endwhile;
+
+    wp_reset_postdata();
+
+    return $emblemas_disponiveis;
+}
+
+function custom_avatar_meta_field() {
+    register_meta('user', 'avatar_custom', array(
+        'type' => 'string',
+        'description' => 'Custom avatar URL for the user',
+        'single' => true,
+        'show_in_rest' => true,
+    ));
+}
+
 
 // Adicione moedas ao perfil do usuário ao criar um novo usuário
 function inicializar_moedas_novo_usuario($user_id) {
@@ -243,10 +285,122 @@ function atualizar_saldo_moedas($user_id, $quantidade_moedas) {
     update_user_meta($user_id, 'moedas_usuario', $novo_saldo);
 }
 
+// Adiciona uma ação para usuários autenticados e não autenticados
+add_action('wp_ajax_upload_avatar', 'upload_avatar_callback');
+add_action('wp_ajax_nopriv_upload_avatar', 'upload_avatar_callback');
 
+function upload_avatar_callback() {
+    check_ajax_referer('update-avatar-nonce', 'security');
 
+    if (!empty($_FILES['avatar']['name'])) {
+        // Configurações para a biblioteca de manipulação de arquivos
+        $configuracoes_upload = array(
+            'test_type' => false,
+            'test_form' => false
+        );
 
+        // Manipula o upload da imagem
+        $anexo = wp_handle_upload($_FILES['avatar'], $configuracoes_upload);
 
+        if (!empty($anexo['url'])) {
+            // Obtém o ID do usuário atual
+            $user_id = get_current_user_id();
+
+            // Atualiza a URL da imagem no perfil do usuário
+            update_user_meta($user_id, 'avatar_custom', $anexo['url']); // Use 'avatar_custom' como chave do campo personalizado
+
+            // Adicional: Atualiza o avatar padrão do WordPress (caso esteja usando)
+            update_user_meta($user_id, 'wp_user_avatar', $anexo['url']);
+
+            // Retorna a URL do avatar personalizado
+            wp_send_json_success(array('data' => $anexo['url'], 'message' => 'Avatar atualizado com sucesso!'));
+        } else {
+            wp_send_json_error(array('message' => 'Erro ao fazer o upload da imagem.'));
+        }
+    } else {
+        wp_send_json_error(array('message' => 'Nenhum arquivo enviado.'));
+    }
+}
+
+// Adiciona ação para usuários autenticados e não autenticados
+add_action('wp_ajax_upload_avatar', 'upload_avatar_callback');
+add_action('wp_ajax_nopriv_upload_avatar', 'upload_avatar_callback');
+
+// forum 
+
+function getNivel($interacoes) {
+    // Definindo os grupos, níveis, requisitos e imagens
+    $grupos = array(
+        'Aprendiz' => array('rgb(253,187,49)', array(0, 5, 10, 15, 20, 25, 30, 35, 40), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/aprendiz.png'),
+        'Terráqueo' => array('rgb(0,134,171)', array(50, 60, 70, 80, 90, 100, 110, 120, 130, 140), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/terraqueo.png'),
+        'Astronauta' => array('rgb(123,105,115)', array(150, 160, 175, 190, 200, 215, 230, 240, 250, 260), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/astronauta.png'),
+        'Viajante' => array('rgb(153,54,54)', array(275, 285, 300, 315, 330, 345, 360, 370, 380, 400), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/viajante.png'),
+        'Marciano' => array('rgb(133,215,39)', array(425, 435, 450, 460, 475, 500, 520, 540, 550, 575), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/marciano.png'),
+        'Alienigena' => array('rgb(69,135,58)', array(600, 610, 625, 640, 650, 665, 680, 690, 700, 720), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/alienigena.png'),
+        'Estrelado' => array('rgb(18,13,38)', array(725, 740, 760, 780, 800, 830, 855, 870, 890, 905), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/estrelado.png'),
+        'Galactico' => array('rgb(0,0,0)', array(930, 940, 950, 960, 970, 980, 1030, 1080, 1100, 1130), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/galactico.png'),
+        'Vortex' => array('rgb(92,39,254)', array(1150, 1160, 1175, 1200, 1225, 1250, 1260, 1275, 1300, 1325), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/vortex.png'),
+        'SuperNova' => array('rgb(0,0,0)', array(1350, 1400, 1450, 1500, 1550, 1700, 1750, 1775, 1800, 1950), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/supernova.png'),
+        'BigBang' => array('rgb(255,255,255)', array(2000, 2100, 2200, 2300), 'https://dev.astronomiabrasil.com/wp-content/themes/hFansite-master/uploads/forum/bigbang.png')
+        // Adicione mais grupos conforme necessário
+    );
+
+    $nivel = 1;
+    foreach ($grupos as $grupo => $config) {
+        list($cor, $limites, $imagem) = $config;
+
+        foreach ($limites as $limite) {
+            if ($interacoes <= $limite) {
+                // Exibir o ranking com base no nível, cor do grupo e imagem
+                echo "<div class='rank' style='background-color: {$cor}; background-image: url({$imagem}); max-width: 100%;'>";
+                echo "{$grupo}";
+                echo "<div class='nv'>Nv. {$nivel}</div>";
+                echo "</div>";
+
+                echo "<div class='text-muted d-none d-md-block'>";
+                echo "<i class='fas fa-comment-alt mr-2'></i> <strong>{$interacoes}</strong> Comentários";
+                echo "</div>";
+
+                return $nivel;
+            }
+            $nivel++;
+        }
+    }
+
+    return 0; // Se não encontrar nenhum grupo
+}
+
+add_action('wp_ajax_load_more_topics', 'load_more_topics');
+add_action('wp_ajax_nopriv_load_more_topics', 'load_more_topics');
+
+function load_more_topics() {
+    $paged = $_POST['page'];
+    $numberOfListings = $_POST['number'];
+
+    $listings = new WP_Query(array(
+        'post_type' => 'forum',
+        'posts_per_page' => $numberOfListings,
+        'paged' => $paged,
+    ));
+
+    ob_start();
+
+    if ($listings->have_posts()) {
+        while ($listings->have_posts()) {
+            $listings->the_post();
+            echo '<div class="col">';
+            get_template_part('template-parts/card', 'topic');
+            echo '</div>';
+        }
+        wp_reset_postdata();
+    } else {
+        echo 'no_more'; // Indica que não há mais tópicos
+    }
+
+    $output = ob_get_clean();
+    echo $output;
+    exit();
+}
 
 
 

@@ -38,7 +38,11 @@ get_header();
 					<div class="card">
 						<div class="card-body text-center">
 							<div class="avatar pixel lg mx-auto mb-3">
-								<?php echo get_avatar( get_the_author_meta( 'ID' ), 56 ); ?>
+
+								<?php
+								$avatar_url = get_user_meta($user->id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-56 photo" height="56" width="56" decoding="async">';
+								?>
 							</div>
 							<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), $user->user_login ); ?>" class="h5 text-inherit mb-1 d-block" data-toggle="tooltip" title="<?php echo $user->user_login ?>"><?php echo $user->display_name ?></a>
 						</div>
@@ -64,7 +68,10 @@ get_header();
 					<div class="card">
 						<div class="card-body text-center">
 						<div class="avatar pixel lg mx-auto mb-3">
-								<?php echo get_avatar( get_the_author_meta( 'ID' ), 56 ); ?>
+						<?php
+								$avatar_url = get_user_meta($user->id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-56 photo" height="56" width="56" decoding="async">';
+								?>
 							</div>
 							<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), $user->user_login ); ?>" class="h5 text-inherit mb-1 d-block" data-toggle="tooltip" title="<?php echo $user->user_login ?>"><?php echo $user->display_name ?></a>
 						</div>

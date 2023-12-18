@@ -59,7 +59,11 @@ get_header(); ?>
 				<div class="card-body py-5 text-center">
 
 					<div class="user-avatar xl mx-auto mb-2">
-						<?php echo get_avatar( get_the_author_meta( 'ID' ), 128 ); ?>
+						<?php
+								$user_id = get_the_author_meta( 'ID' );
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-128 photo" height="128" width="128" decoding="async">';
+								?>
 					</div>
 				 
 					<h1 class="mb-0" data-toggle="tooltip" title="<?php echo $curauth->user_login; ?>"><?php echo $curauth->display_name; ?></h1>

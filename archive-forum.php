@@ -41,7 +41,11 @@
 							<div class="mb-3 topic-<?php the_ID(); ?>">
 								<div class="d-flex align-items-center">
 									<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>" class="user-avatar sm mr-2">
-										<?php echo get_avatar( get_the_author_meta( 'ID' ), 32 ); ?>
+									<?php
+								$user_id = get_the_author_meta( 'ID' );
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-32 photo" height="32" width="32" decoding="async">';
+								?>
 									</a>
 									<div class="w-100 d-md-flex align-items-center">
 										<h5 class="card-title mb-0"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h5>

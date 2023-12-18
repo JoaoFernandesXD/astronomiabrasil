@@ -24,7 +24,11 @@
 										<h5 class="mb-md-3 mb-1"><a class="text-inherit" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>" data-toggle="tooltip" title="<?php echo get_the_author_meta('user_login'); ?>"><?php echo get_the_author(); ?></a></h5>
 
 										<div class="user-avatar xl d-none d-md-block">
-											<?php echo get_avatar( get_the_author_meta( 'ID' ), 128 ); ?>
+										<?php
+										$user_id = get_the_author_meta( 'ID' );
+										$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+										echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-128 photo" height="128" width="128" decoding="async">';
+										?>
 										</div>
 
 										<?php get_template_part( 'template-parts/ranking-forum') ?>

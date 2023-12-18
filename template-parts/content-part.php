@@ -1,4 +1,4 @@
-// WP_Query arguments
+<?php // WP_Query arguments
 $args = array(
     'posts_per_page'    => 3,
     'post_type'     => 'post',  //choose post type here

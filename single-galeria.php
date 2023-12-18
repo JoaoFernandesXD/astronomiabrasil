@@ -9,7 +9,11 @@
 
 				<div class="d-flex">
 					<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>" class="user-avatar lg mr-3">
-						<?php echo get_avatar( get_the_author_meta( 'ID' ), 56 ); ?>
+						<?php 
+								$user_id = get_the_author_meta('ID');
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-56 photo" height="56" width="56" decoding="async">';
+								?>
 					</a>
 
 					<div class="w-100 d-flex flex-column flex-md-row">

@@ -40,7 +40,11 @@ function better_comments_forum( $comment, $args, $depth ) {
 								
 							<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), $avatar ); ?>">
 								<div class="user-avatar lg d-md-none">
-									<?php echo get_avatar( $comment, 56 ); ?>
+								<?php
+								$user_id = $comment_author_id;
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-56 photo" height="56" width="56" decoding="async">';
+								?>
 								</div>
 							</a>
 
@@ -50,7 +54,12 @@ function better_comments_forum( $comment, $args, $depth ) {
 
 								<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), $avatar ); ?>">
 									<div class="user-avatar xl d-none d-md-block">
-										<?php echo get_avatar( $comment, 128 ); ?>
+									<?php
+								$user_id = $comment_author_id;
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-24 photo" height="24" width="24" decoding="async">';
+								?>
+
 									</div>
 								</a>
 

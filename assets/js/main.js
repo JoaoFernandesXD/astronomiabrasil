@@ -144,6 +144,8 @@ function audio() {
 }
 
 
+
+
 // Init
 
 function init() {
@@ -160,15 +162,3 @@ function init() {
 
 
 init();
-
-// var Main = {
-// 	Inits: function(){
-// 		init();
-// 	}
-// };
-
-// $('main').page({
-// 	'regenerate': function(){
-// 		Main.Inits();
-// 	}
-// });

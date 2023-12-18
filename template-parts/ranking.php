@@ -21,7 +21,11 @@ $results = $wpdb->get_results('
 				$name = $user->user_login;
 			?>
 			<div class="user-avatar lg">
-				<?php echo get_avatar( $user, 56 ); ?>
+				<?php
+								$user_id = $result->user_id;
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-56 photo" height="56" width="56" decoding="async">';
+								?>
 			</div>
 			<div class="content">
 				<h6 class='mb-1'>

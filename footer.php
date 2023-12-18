@@ -8,10 +8,10 @@
 				) );
 			?>
 
-			<div class="mb-3"><strong><?php echo bloginfo('name'); ?></strong> © <?php echo date('Y');?>. <?php esc_html_e( 'All rights reserved.', 'hfansite' ); ?></div>
+			<div class="mb-3"><strong><?php echo bloginfo('name'); ?></strong> © <?php echo date('Y');?>. <?php esc_html_e( 'Todos os direitos reservados.', 'hfansite' ); ?></div>
 
-			<?php esc_html_e( 'This Fan Site is not affiliated with, endorsed, sponsored, or specifically approved by Sulake Oy or its Affiliates.', 'hfansite' ); ?><br>
-			<?php esc_html_e( 'This Fan Site may use the trademarks and other intellectual property of Habbo, which is permitted under Habbo Fan Site Policy.', 'hfansite' ); ?>
+			<?php esc_html_e( 'Este site é dedicado à divulgação de notícias e discussões sobre astronomia..', 'hfansite' ); ?><br>
+			<?php esc_html_e( 'Este site está em conformidade com todas as normas e políticas relevantes, e todas as informações fornecidas são para fins informativos e de entretenimento apenas.', 'hfansite' ); ?>
 		</div>
 	</div>
 

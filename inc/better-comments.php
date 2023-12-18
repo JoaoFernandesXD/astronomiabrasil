@@ -39,7 +39,11 @@ function better_comments( $comment, $args, $depth ) {
 					
 				<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), $avatar ); ?>">
 					<div class="user-avatar lg">
-						<?php echo get_avatar( $comment, 56 ); ?>
+					<?php
+								$user_id = $comment_author_id;
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-56 photo" height="56" width="56" decoding="async">';
+								?>
 					</div>
 				</a>
 			</div><!-- .comment-author -->

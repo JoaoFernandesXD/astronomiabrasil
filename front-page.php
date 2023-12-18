@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+</script>
 <div class="jumbotron jumbotron-fluid hero">
 	<div class="container">
 		<h1 class="my-3"><img src="<?php echo home_url() ?>/wp-content/uploads/2023/12/logo-branca.png" width="300px" style="margin-top:40px;"></h1>
@@ -25,6 +25,10 @@
 
 <section class="pb-0">
 	<div class="container">
+	<div class="row">
+		<?php get_template_part( 'template-parts/lancamentos') ?>
+		
+	</div>
 		<div class="row">
 			<div class="col-lg-9 pr-lg-3">
 				<div>
@@ -36,7 +40,8 @@
 				<div class="sidebar">
 					<?php dynamic_sidebar( 'sidebar_middle' ); ?>
 				</div>
-
+				
+				<a class="twitter-timeline" data-height="550" href="https://twitter.com/PallottaPedro"></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 				<div class="section-title mt-4">
 					<h3>Novos usuários</h3>
 				</div>
@@ -48,12 +53,12 @@
 							$usernames = $wpdb->get_results("SELECT ID, user_login, user_url FROM $wpdb->users ORDER BY ID DESC LIMIT 6");
 
 							foreach ($usernames as $user) {
-								$avatar_url = get_avatar_url($user->ID, array('size' => 32)); // Altere o tamanho conforme necessário
+								$avatar_url = get_user_meta($user->ID, 'avatar_custom', true);
 								?>
 								<div class="col">
 									<div class="user-avatar pixel mx-auto" data-toggle="tooltip" title="<?php echo esc_attr($user->user_login) ?>">
 										<a href="<?php echo esc_url(get_author_posts_url($user->ID, $user->user_login)); ?>">
-											<img src="<?php echo esc_url($avatar_url); ?>" alt="<?php echo esc_attr($user->user_login); ?>">
+											<img src="<?php echo $avatar_url; ?>" alt="<?php echo esc_attr($user->user_login); ?>">
 										</a>
 									</div>
 								</div>

@@ -37,7 +37,12 @@
 		<h5 class="card-title mb-4"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php $texto = get_the_title(); echo custom_limited_title($texto, 45); ?></a></h5>
 		<div class="card-text">
 			<div class="user-avatar sm mr-2">
-				<?php echo get_avatar( get_the_author_meta( 'ID' ), 24 ); ?>
+			<?php
+								$user_id = get_the_author_meta( 'ID' );
+								$avatar_url = get_user_meta($user_id, 'avatar_custom', true);
+								echo '<img alt="" src="'. $avatar_url . '" srcset=""'. $avatar_url . '" class="avatar avatar-24 photo" height="24" width="24" decoding="async">';
+								?>
+								
 			</div> 
 			<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>" data-toggle="tooltip" title="<?php echo get_the_author_meta('user_login'); ?>"><?php echo get_the_author(); ?></a> 
 			<span class="ml-auto text-muted"> 

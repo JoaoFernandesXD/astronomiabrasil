@@ -6,10 +6,9 @@
 
 get_header();
 ?>
-
 <div class="jumbotron jumbotron-fluid min pink">
 	<div class="container text-center">
-		<h1 class="mb-0"><?php echo the_title() ?></h1>
+		<h1 class="mb-0">Postar Galeria</h1>
 	</div>
 </div>
 
@@ -71,15 +70,9 @@ get_header();
 			<form action="" method="post" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-md-6 offset-md-3">
-
 						<div class="form-group">
-							<label for="title"><?php esc_html_e( 'Image', 'hfansite' ); ?></label>
-							<input type="file" name="thumbnail" class="form-control files">
-						</div>
-
-						<div class="form-group">
-							<label for="title"><?php esc_html_e( 'Title', 'hfansite' ); ?></label>
-							<input name="title" type="text" class="form-control" id="title" placeholder="<?php esc_html_e( 'Title', 'hfansite' ); ?>">
+							<label for="title"><?php esc_html_e( 'Titulo', 'hfansite' ); ?></label>
+							<input name="title" type="text" class="form-control" id="title" placeholder="<?php esc_html_e( 'Titulo', 'hfansite' ); ?>">
 						</div>
 
 						<div class="form-group">
@@ -87,12 +80,18 @@ get_header();
 							<input name="tags" type="text" class="form-control" id="tags">
 						</div>
 
+						
 						<div class="form-group">
-							<label for="content"><?php esc_html_e( 'Description', 'hfansite' ); ?> <i class="fas fa-question-circle text-muted" data-toggle="tooltip" title="URLs são vinculadas automaticamente. Quebras de linha e parágrafos são gerados automaticamente. as tags a, em, strong e code são aceitas."></i></label>
-							<textarea name="body" class="form-control" id="content" placeholder="<?php esc_html_e( 'Write something...', 'hfansite' ); ?>"></textarea>
+							<label for="title"><?php esc_html_e( 'Imagem', 'hfansite' ); ?></label>
+							<input type="file" name="thumbnail" class="form-control files">
 						</div>
 
-						<button type="submit" name="submit" class="btn btn-lg btn-block btn-primary mt-4"><?php esc_html_e( 'Publish', 'hfansite' ); ?></button>
+						<div class="form-group">
+							<label for="content"><?php esc_html_e( 'Descrição', 'hfansite' ); ?> <i class="fas fa-question-circle text-muted" data-toggle="tooltip" title="URLs são vinculadas automaticamente. Quebras de linha e parágrafos são gerados automaticamente. as tags a, em, strong e code são aceitas."></i></label>
+							<textarea name="body" class="form-control" id="content" placeholder="<?php esc_html_e( 'Escreva algo...', 'hfansite' ); ?>"></textarea>
+						</div>
+
+						<button type="submit" name="submit" class="btn btn-lg btn-block btn-primary mt-4"><?php esc_html_e( 'Publicar', 'hfansite' ); ?></button>
 					</div>
 				</div>
 			</form>

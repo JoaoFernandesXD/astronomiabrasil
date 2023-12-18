@@ -71,6 +71,10 @@ get_header();
 					<form action="" method="post" enctype="multipart/form-data">
 
 						<div class="form-group">
+							<label for="title">Título</label>
+							<input name="title" type="text" class="form-control" id="title" placeholder="Título" required="">
+						</div>
+						<div class="form-group">
 							<label for="category">Categoria</label>
 							<?php
 								$terms = get_terms("category_forum",'order_by=count&hide_empty=0');
@@ -88,13 +92,8 @@ get_header();
 						</div>
 
 						<div class="form-group">
-							<label for="title">Título</label>
-							<input name="title" type="text" class="form-control" id="title" placeholder="Título" required="">
-						</div>
-
-						<div class="form-group">
 							<label for="content">Conteúdo</label>
-							<?php wp_editor('', 'body', array('textarea_rows' => 15)); ?>
+							<?php wp_editor('', 'body', array('textarea_rows' => 15, 'media_buttons' => FALSE)); ?>
 						</div>
 
 						<button type="submit" name="submit" class="btn btn-lg btn-block btn-primary mt-4" >Publicar</button>

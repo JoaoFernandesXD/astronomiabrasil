@@ -209,6 +209,12 @@ class Custom_Widget_Forum extends WP_Widget {
 					<?php
 				}
 			echo '</div>';
+			if ($listings->max_num_pages > 1) {
+				echo '<div class="pagination">';
+				echo '<span class="prev page-numbers ' . ($listings->current_page > 1 ? '' : 'disabled') . '"><</span>';
+				echo '<span class="next page-numbers ' . ($listings->current_page < $listings->max_num_pages ? '' : 'disabled') . '">></span>';
+				echo '</div>';
+			}
 			wp_reset_postdata(); 
 		}else{
 			echo '<div class="card">
